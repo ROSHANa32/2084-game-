@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f1226" />
+  <meta name="theme-color" content="#070a1f" />
   <meta name="description" content="Fusion — a calming number merge puzzle. Swipe to combine matching tiles and chase the 2048 tile. Free, offline, mobile-first." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -18,6 +18,16 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Deep-space background: nebula glow + twinkling star layers -->
+  <div class="space-bg" aria-hidden="true">
+    <div class="stars stars-sm"></div>
+    <div class="stars stars-md"></div>
+    <div class="stars stars-lg"></div>
+    <i class="glow-star gs1"></i>
+    <i class="glow-star gs2"></i>
+    <i class="glow-star gs3"></i>
+  </div>
+
   <div class="app">
     <header class="topbar">
       <div class="brand">
@@ -51,6 +61,11 @@
 
     <main class="board-wrap">
       <div class="board" id="board" aria-label="Game board" role="grid">
+        <span class="corner corner-tl" aria-hidden="true"></span>
+        <span class="corner corner-tr" aria-hidden="true"></span>
+        <span class="corner corner-bl" aria-hidden="true"></span>
+        <span class="corner corner-br" aria-hidden="true"></span>
+
         <div class="grid-bg" id="grid-bg"></div>
         <div class="tiles" id="tiles"></div>
 
@@ -67,6 +82,14 @@
     <footer class="footer">
       <p>Use arrow keys, <kbd>W A S D</kbd>, or swipe. Built for fun — original game, no affiliations.</p>
     </footer>
+  </div>
+
+  <!-- Decorative sparkle accent -->
+  <div class="sparkle" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="26" height="26">
+      <path d="M12 2c.4 4.6 2.4 6.6 7 7-4.6.4-6.6 2.4-7 7-.4-4.6-2.4-6.6-7-7 4.6-.4 6.6-2.4 7-7z"
+            fill="currentColor" />
+    </svg>
   </div>
 
   <script src="js/game.js"></script>

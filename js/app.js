@@ -31,13 +31,15 @@
   /* ---------- responsive board sizing ---------- */
   function sizeBoard() {
     const styles = getComputedStyle(document.documentElement);
-    const gap = parseInt(styles.getPropertyValue("--gap"), 10) || 10;
-    // available width: app padding is 16 each side; cap board width
-    const available = Math.min(window.innerWidth - 32, 448);
+    const gap = parseInt(styles.getPropertyValue("--gap"), 10) || 12;
+    const frame = parseInt(styles.getPropertyValue("--frame"), 10) || 16;
+    // available width: app padding is 18 each side; cap board width
+    const available = Math.min(window.innerWidth - 36, 416);
     // also respect viewport height so the board never overflows
-    const maxByHeight = Math.min(window.innerHeight * 0.62, 448);
+    const maxByHeight = Math.min(window.innerHeight * 0.6, 416);
     const target = Math.max(220, Math.min(available, maxByHeight));
-    const cell = Math.floor((target - (SIZE + 1) * gap) / SIZE);
+    // outer target = SIZE*cell + (SIZE-1)*gap + 2*frame  →  solve for cell
+    const cell = Math.floor((target - 2 * frame - (SIZE - 1) * gap) / SIZE);
     document.documentElement.style.setProperty("--cell", cell + "px");
     document.documentElement.style.setProperty("--board-size", SIZE);
     repositionAll();
@@ -45,8 +47,8 @@
 
   function cellMetrics() {
     const styles = getComputedStyle(document.documentElement);
-    const gap = parseInt(styles.getPropertyValue("--gap"), 10) || 10;
-    const cell = parseInt(styles.getPropertyValue("--cell"), 10) || 74;
+    const gap = parseInt(styles.getPropertyValue("--gap"), 10) || 12;
+    const cell = parseInt(styles.getPropertyValue("--cell"), 10) || 72;
     return { gap, cell };
   }
 
