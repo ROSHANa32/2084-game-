@@ -16,6 +16,7 @@
     score: document.getElementById("score"),
     best: document.getElementById("best"),
     newGame: document.getElementById("new-game"),
+    soundToggle: document.getElementById("sound-toggle"),
     overlay: document.getElementById("overlay"),
     overlayTitle: document.getElementById("overlay-title"),
     overlayText: document.getElementById("overlay-text"),
@@ -126,6 +127,7 @@
     // 2) render / update live tiles
     const live = game.tiles();
     const seen = new Set();
+    let mergeIdx = 0;
     for (const tile of live) {
       seen.add(tile.id);
       let el = tileEls.get(tile.id);
@@ -134,6 +136,7 @@
         if (!opts.silent) {
           el.classList.add("spawn");
           setTimeout(() => el.classList.remove("spawn"), 200);
+          if (opts.sound && window.Sound) Sound.spawn();
         }
       } else {
         setTileVisual(el, tile);
@@ -144,6 +147,7 @@
           void el.offsetWidth;
           el.classList.add("merged");
           setTimeout(() => el.classList.remove("merged"), 200);
+          if (opts.sound && window.Sound) Sound.merge(tile.value, mergeIdx++);
         }
       }
     }
@@ -218,13 +222,15 @@
 
   function checkEndStates(result) {
     if (game.won && !game.keepPlaying && result && result.won) {
+      if (window.Sound) Sound.win();
       showOverlay("You made 2048!", "Beautiful fusion. Keep going for a higher score?", [
-        { label: "Keep Playing", primary: true, onClick: () => { game.continueAfterWin(); hideOverlay(); persist(); } },
+        { label: "Keep Playing", primary: true, onClick: () => { if (window.Sound) Sound.click(); game.continueAfterWin(); hideOverlay(); persist(); } },
         { label: "New Game", primary: false, onClick: () => { startNew(); } },
       ]);
       return;
     }
     if (game.over) {
+      if (result && result.moved && window.Sound) Sound.gameover();
       showOverlay("No more moves", "The board is full. Final score: " + game.score + ".", [
         { label: "Try Again", primary: true, onClick: () => { startNew(); } },
       ]);
@@ -237,6 +243,7 @@
   }
 
   function startNew() {
+    if (window.Sound) { Sound.resume(); Sound.click(); }
     hideOverlay();
     clearAllTiles();
     game = new FusionGame(SIZE, WIN);
@@ -248,9 +255,11 @@
 
   function doMove(dir) {
     if (!els.overlay.hidden && !(game.over || game.won)) return;
+    if (window.Sound) Sound.resume();
     const result = game.move(dir);
     if (!result.moved) return;
-    render({ showGain: true });
+    if (window.Sound) Sound.move();
+    render({ showGain: true, sound: true });
     persist();
     checkEndStates(result);
   }
@@ -321,6 +330,27 @@
   /* ---------- buttons ---------- */
   els.newGame.addEventListener("click", startNew);
 
+  const ICON_ON =
+    '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>';
+  const ICON_OFF =
+    '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>';
+
+  function updateSoundIcon() {
+    if (!els.soundToggle) return;
+    const m = window.Sound ? Sound.muted : true;
+    els.soundToggle.innerHTML = m ? ICON_OFF : ICON_ON;
+    els.soundToggle.setAttribute("aria-pressed", String(!m));
+    els.soundToggle.setAttribute("aria-label", m ? "Unmute sound" : "Mute sound");
+    els.soundToggle.classList.toggle("is-muted", m);
+  }
+
+  if (els.soundToggle) {
+    els.soundToggle.addEventListener("click", () => {
+      if (window.Sound) Sound.toggle();
+      updateSoundIcon();
+    });
+  }
+
   window.addEventListener("resize", sizeBoard);
   window.addEventListener("orientationchange", () => setTimeout(sizeBoard, 200));
 
@@ -332,6 +362,7 @@
     if (!game) game = new FusionGame(SIZE, WIN);
     prevScore = game.score;
     sizeBoard();
+    updateSoundIcon();
     render({ silent: true });
     if (game.over) checkEndStates({});
   }

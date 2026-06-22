@@ -1,10 +1,11 @@
 /* Fusion service worker — network-first so updates show immediately,
    with offline fallback to cache. */
-const CACHE = "fusion-v8";
+const CACHE = "fusion-v9";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
+  "./js/sound.js",
   "./js/game.js",
   "./js/app.js",
   "./manifest.json",
