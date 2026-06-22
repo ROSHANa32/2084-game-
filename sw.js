@@ -1,6 +1,6 @@
 /* Fusion service worker — network-first so updates show immediately,
    with offline fallback to cache. */
-const CACHE = "fusion-v6";
+const CACHE = "fusion-v7";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,7 +8,6 @@ const ASSETS = [
   "./js/game.js",
   "./js/app.js",
   "./manifest.json",
-  "./icons/icon.svg",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",
