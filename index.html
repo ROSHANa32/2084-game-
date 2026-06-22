@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
   <!-- Deep-space background: nebula glow + twinkling star layers -->
@@ -55,7 +55,7 @@
     <section class="toolbar">
       <p class="hint" id="hint">Swipe to move tiles. Equal numbers fuse into one!</p>
       <div class="tool-buttons">
-        <button class="btn btn-icon" id="sound-toggle" type="button" aria-label="Mute sound" aria-pressed="true"></button>
+        <button class="btn btn-icon" id="sound-toggle" type="button" aria-label="Mute sound" aria-pressed="true"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></button>
         <button class="btn btn-primary" id="new-game" type="button">New Game</button>
       </div>
     </section>
@@ -93,9 +93,9 @@
     </svg>
   </div>
 
-  <script src="js/sound.js"></script>
-  <script src="js/game.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/sound.js?v=10"></script>
+  <script src="js/game.js?v=10"></script>
+  <script src="js/app.js?v=10"></script>
   <script>
     if ('serviceWorker' in navigator) {
       // Reload once when a new service worker takes control, so the
