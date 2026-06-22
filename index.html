@@ -73,8 +73,28 @@
   <script src="js/app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
+      // Reload once when a new service worker takes control, so the
+      // freshest version is shown without a manual hard-refresh.
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
+        navigator.serviceWorker.register('sw.js').then((reg) => {
+          // If an updated worker is waiting, activate it immediately.
+          if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
+          reg.addEventListener('updatefound', () => {
+            const nw = reg.installing;
+            if (!nw) return;
+            nw.addEventListener('statechange', () => {
+              if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+                nw.postMessage('SKIP_WAITING');
+              }
+            });
+          });
+        }).catch(() => {});
       });
     }
   </script>
