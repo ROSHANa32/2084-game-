@@ -143,6 +143,32 @@
       tone({ freq: 880, type: "sine", dur: 0.06, gain: 0.035, when: 0.012 });
     },
 
+    /* full glass shatter — sharp crack + tinkling shards + soft body.
+       Fired as a reward when a big tile (128+) is formed. */
+    glassShatter(value) {
+      if (muted) return;
+      const c = ensure();
+      if (!c) return;
+      // initial sharp crack
+      noise({ dur: 0.13, gain: 0.17, type: "highpass", freq: 3600 });
+      noise({ dur: 0.06, gain: 0.13, type: "bandpass", freq: 6200 });
+      // scattered shards tinkling as they fall
+      const shards = 10;
+      for (let i = 0; i < shards; i++) {
+        const f = 1700 + Math.random() * 4300;
+        const when = Math.random() * 0.26;
+        const dur = 0.05 + Math.random() * 0.16;
+        const g = 0.04 + Math.random() * 0.05;
+        tone({ freq: f, type: i % 2 ? "sine" : "triangle", dur, gain: g, when, attack: 0.002 });
+      }
+      // a lingering sparkle for the higher tiles
+      if (value >= 512) {
+        noise({ dur: 0.22, gain: 0.05, type: "highpass", freq: 5000, when: 0.05 });
+      }
+      // soft low body so it feels weighty, not just brittle
+      tone({ freq: 150, type: "sine", dur: 0.18, gain: 0.07 });
+    },
+
     /* happy ascending arpeggio on reaching 2048 */
     win() {
       const seq = [0, 4, 7, 12, 16];

@@ -128,6 +128,7 @@
     const live = game.tiles();
     const seen = new Set();
     let mergeIdx = 0;
+    let maxMerged = 0;
     for (const tile of live) {
       seen.add(tile.id);
       let el = tileEls.get(tile.id);
@@ -148,8 +149,14 @@
           el.classList.add("merged");
           setTimeout(() => el.classList.remove("merged"), 200);
           if (opts.sound && window.Sound) Sound.merge(tile.value, mergeIdx++);
+          if (tile.value > maxMerged) maxMerged = tile.value;
         }
       }
+    }
+
+    // play one glass shatter per move when a big tile (128+) is formed
+    if (!opts.silent && opts.sound && window.Sound && maxMerged >= 128) {
+      Sound.glassShatter(maxMerged);
     }
 
     // 3) remove any stale elements (shouldn't normally happen)
