@@ -1,19 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1a1f43"/>
-      <stop offset="1" stop-color="#0f1226"/>
+    <radialGradient id="bg" cx="50%" cy="42%" r="72%">
+      <stop offset="0" stop-color="#1f5a6e"/>
+      <stop offset="0.55" stop-color="#123a4d"/>
+      <stop offset="1" stop-color="#08202e"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7d4"/>
+      <stop offset="0.30" stop-color="#ffe277"/>
+      <stop offset="0.55" stop-color="#f7b733"/>
+      <stop offset="0.80" stop-color="#dd9015"/>
+      <stop offset="1" stop-color="#a5650a"/>
     </linearGradient>
-    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6c5ce7"/>
-      <stop offset="1" stop-color="#00d2ff"/>
+    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffedaf"/>
+      <stop offset="0.5" stop-color="#e3a82f"/>
+      <stop offset="1" stop-color="#9c6a10"/>
     </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0545a"/>
+      <stop offset="1" stop-color="#9c1318"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="0.42" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="44%" r="46%">
+      <stop offset="0" stop-color="#ffd35e" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ffd35e" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="ds" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <rect x="96" y="96" width="320" height="320" rx="72" fill="url(#mark)"/>
-  <!-- two tiles fusing -->
-  <rect x="150" y="150" width="150" height="150" rx="34" fill="#ffffff" opacity="0.92"/>
-  <rect x="212" y="212" width="150" height="150" rx="34" fill="#ffffff" opacity="0.5"/>
-  <!-- plus / merge symbol -->
-  <path d="M256 196v120M196 256h120" stroke="#6c5ce7" stroke-width="26" stroke-linecap="round"/>
+
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+
+  <g transform="translate(0.0,0.0) scale(1.0)">
+    <ellipse cx="256" cy="214" rx="232" ry="150" fill="url(#glow)"/>
+
+    <!-- ornate double frame -->
+    <rect x="30" y="30" width="452" height="452" rx="58" fill="none" stroke="url(#frame)" stroke-width="10"/>
+    <rect x="46" y="46" width="420" height="420" rx="46" fill="none" stroke="url(#frame)" stroke-width="3" stroke-opacity="0.7"/>
+    <g fill="url(#frame)">
+      <circle cx="30" cy="30" r="12"/><circle cx="482" cy="30" r="12"/>
+      <circle cx="30" cy="482" r="12"/><circle cx="482" cy="482" r="12"/>
+      <circle cx="256" cy="27" r="7"/><circle cx="256" cy="485" r="7"/>
+      <circle cx="27" cy="256" r="7"/><circle cx="485" cy="256" r="7"/>
+    </g>
+
+    <!-- glossy 2048 -->
+    <g filter="url(#ds)">
+      <text x="256" y="214" text-anchor="middle" dominant-baseline="central"
+            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
+            font-size="176" letter-spacing="-8"
+            fill="url(#gold)" stroke="#5a3208" stroke-width="8" paint-order="stroke">2048</text>
+      <text x="256" y="210" text-anchor="middle" dominant-baseline="central"
+            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
+            font-size="176" letter-spacing="-8" fill="url(#sheen)">2048</text>
+    </g>
+
+    <!-- ribbon banner -->
+    <g filter="url(#ds)">
+      <path d="M112 338 h288 l-26 30 26 30 h-288 l-26 -30 z" fill="url(#ribbon)"
+            stroke="url(#frame)" stroke-width="5"/>
+      <text x="256" y="370" text-anchor="middle" dominant-baseline="central"
+            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
+            font-size="54" letter-spacing="7" fill="#fff3d6">FUSION</text>
+    </g>
+  </g>
 </svg>
