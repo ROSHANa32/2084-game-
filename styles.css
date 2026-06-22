@@ -74,10 +74,6 @@ body {
   border-radius: 15px;
   display: grid;
   place-items: center;
-  font-family: "Fredoka", sans-serif;
-  font-weight: 700;
-  font-size: 28px;
-  color: #fff;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
   box-shadow: 0 10px 22px -8px rgba(108, 92, 231, 0.8);
 }
