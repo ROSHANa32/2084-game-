@@ -148,14 +148,16 @@
           void el.offsetWidth;
           el.classList.add("merged");
           setTimeout(() => el.classList.remove("merged"), 200);
-          if (opts.sound && window.Sound) Sound.merge(tile.value, mergeIdx++);
+          if (opts.sound && window.Sound && tile.value < 32) {
+            Sound.clink(tile.value, mergeIdx++);
+          }
           if (tile.value > maxMerged) maxMerged = tile.value;
         }
       }
     }
 
-    // play one glass shatter per move when a big tile (128+) is formed
-    if (!opts.silent && opts.sound && window.Sound && maxMerged >= 128) {
+    // glass shatter when a 32-or-higher tile is formed (once per move)
+    if (!opts.silent && opts.sound && window.Sound && maxMerged >= 32) {
       Sound.glassShatter(maxMerged);
     }
 

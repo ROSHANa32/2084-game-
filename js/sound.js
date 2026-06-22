@@ -137,6 +137,18 @@
       tone({ freq: 640, type: "sine", dur: 0.08, gain: 0.045, attack: 0.003 });
     },
 
+    /* soft glassy clink/tink for small merges (4, 8, 16) — short + subtle,
+       pitch rises a touch with the value. */
+    clink(value, index) {
+      if (muted) return;
+      index = index || 0;
+      const when = Math.min(index, 6) * 0.02;
+      const base = freqForValue(value) * 4; // glassy high register
+      tone({ freq: base, type: "triangle", dur: 0.12, gain: 0.08, when, attack: 0.002 });
+      tone({ freq: base * 2.7, type: "sine", dur: 0.07, gain: 0.028, when, attack: 0.002 }); // inharmonic shimmer
+      noise({ dur: 0.03, gain: 0.02, type: "highpass", freq: 6000, when }); // tiny tap tick
+    },
+
     /* crisp UI tick */
     click() {
       tone({ freq: 520, type: "square", dur: 0.045, gain: 0.05 });

@@ -1,6 +1,6 @@
 /* Fusion service worker — network-first so updates show immediately,
    with offline fallback to cache. */
-const CACHE = "fusion-v11";
+const CACHE = "fusion-v12";
 const ASSETS = [
   "./",
   "./index.html",
