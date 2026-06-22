@@ -1,10 +1,10 @@
-# Fusion — Number Merge Puzzle
+# 2048 — Number Merge Puzzle
 
 A calming, mobile-first number puzzle. Swipe to slide tiles; when two tiles
 with the same number touch, they **fuse** into their sum. Keep merging to reach
 the **2048** tile — then keep going for a high score.
 
-> Fusion is an original game inspired by the classic sliding-merge genre.
+> 2048 is an original game inspired by the classic sliding-merge genre.
 > It ships with its own branding, artwork, and code — no third-party assets.
 
 ## Features

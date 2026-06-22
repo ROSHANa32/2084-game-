@@ -1,6 +1,6 @@
 {
-  "name": "Fusion — Number Merge Puzzle",
-  "short_name": "Fusion",
+  "name": "2048 — Number Merge Puzzle",
+  "short_name": "2048",
   "description": "A calming number merge puzzle. Swipe to combine matching tiles and chase the 2048 tile.",
   "start_url": "./index.html",
   "scope": "./",
