@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="42%" r="72%">
+    <radialGradient id="bg" cx="50%" cy="40%" r="72%">
       <stop offset="0" stop-color="#1f5a6e"/>
       <stop offset="0.55" stop-color="#123a4d"/>
       <stop offset="1" stop-color="#08202e"/>
@@ -26,7 +26,7 @@
       <stop offset="0.42" stop-color="#ffffff" stop-opacity="0.05"/>
       <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="44%" r="46%">
+    <radialGradient id="glow" cx="50%" cy="42%" r="46%">
       <stop offset="0" stop-color="#ffd35e" stop-opacity="0.5"/>
       <stop offset="1" stop-color="#ffd35e" stop-opacity="0"/>
     </radialGradient>
@@ -38,7 +38,7 @@
   <rect width="512" height="512" rx="110" fill="url(#bg)"/>
 
   <g transform="translate(0.0,0.0) scale(1.0)">
-    <ellipse cx="256" cy="214" rx="232" ry="150" fill="url(#glow)"/>
+    <ellipse cx="256" cy="210" rx="232" ry="150" fill="url(#glow)"/>
 
     <!-- ornate double frame -->
     <rect x="30" y="30" width="452" height="452" rx="58" fill="none" stroke="url(#frame)" stroke-width="10"/>
@@ -50,24 +50,44 @@
       <circle cx="27" cy="256" r="7"/><circle cx="485" cy="256" r="7"/>
     </g>
 
-    <!-- glossy 2048 -->
-    <g filter="url(#ds)">
-      <text x="256" y="214" text-anchor="middle" dominant-baseline="central"
-            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
-            font-size="176" letter-spacing="-8"
-            fill="url(#gold)" stroke="#5a3208" stroke-width="8" paint-order="stroke">2048</text>
-      <text x="256" y="210" text-anchor="middle" dominant-baseline="central"
-            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
-            font-size="176" letter-spacing="-8" fill="url(#sheen)">2048</text>
+    <!-- small decorative number tiles in the corners -->
+    <g font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold" font-size="26" text-anchor="middle">
+      <g transform="translate(96,118) rotate(-15)">
+        <rect x="-22" y="-22" width="44" height="44" rx="9" fill="#5b8bff"/>
+        <text x="0" y="2" dominant-baseline="central" fill="#fff">4</text>
+      </g>
+      <g transform="translate(416,118) rotate(15)">
+        <rect x="-22" y="-22" width="44" height="44" rx="9" fill="#2ecc71"/>
+        <text x="0" y="2" dominant-baseline="central" fill="#fff">8</text>
+      </g>
+      <g transform="translate(96,300) rotate(12)">
+        <rect x="-22" y="-22" width="44" height="44" rx="9" fill="#ff6a9c"/>
+        <text x="0" y="2" dominant-baseline="central" fill="#fff">2</text>
+      </g>
+      <g transform="translate(416,300) rotate(-12)">
+        <rect x="-22" y="-22" width="44" height="44" rx="9" fill="#b388ff"/>
+        <text x="0" y="2" dominant-baseline="central" fill="#fff">16</text>
+      </g>
     </g>
 
-    <!-- ribbon banner -->
+    <!-- glossy 2048 -->
     <g filter="url(#ds)">
-      <path d="M112 338 h288 l-26 30 26 30 h-288 l-26 -30 z" fill="url(#ribbon)"
-            stroke="url(#frame)" stroke-width="5"/>
-      <text x="256" y="370" text-anchor="middle" dominant-baseline="central"
+      <text x="256" y="208" text-anchor="middle" dominant-baseline="central"
             font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
-            font-size="54" letter-spacing="7" fill="#fff3d6">FUSION</text>
+            font-size="172" letter-spacing="-8"
+            fill="url(#gold)" stroke="#5a3208" stroke-width="8" paint-order="stroke">2048</text>
+      <text x="256" y="204" text-anchor="middle" dominant-baseline="central"
+            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
+            font-size="172" letter-spacing="-8" fill="url(#sheen)">2048</text>
+    </g>
+
+    <!-- ribbon banner: GAME -->
+    <g filter="url(#ds)">
+      <path d="M120 336 h272 l-26 30 26 30 h-272 l-26 -30 z" fill="url(#ribbon)"
+            stroke="url(#frame)" stroke-width="5"/>
+      <text x="256" y="368" text-anchor="middle" dominant-baseline="central"
+            font-family="'DejaVu Sans','Arial Black',sans-serif" font-weight="bold"
+            font-size="58" letter-spacing="10" fill="#fff3d6">GAME</text>
     </g>
   </g>
 </svg>
