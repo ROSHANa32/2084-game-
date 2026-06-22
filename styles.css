@@ -159,25 +159,6 @@ body {
 }
 .btn-primary:hover { filter: brightness(1.08); }
 
-.btn-ghost {
-  background: var(--panel);
-  color: var(--text);
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-}
-.btn-ghost svg {
-  width: 20px; height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }
-
 /* ---------- Board ---------- */
 .board-wrap {
   display: flex;

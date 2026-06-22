@@ -11,7 +11,6 @@ the **2048** tile — then keep going for a high score.
 
 - **Mobile-first**: swipe controls, responsive board, safe-area aware, no zoom jank.
 - **Smooth animations**: tiles slide, spawn, and pop on merge.
-- **Undo**: step back up to 20 moves.
 - **Auto-save**: your board, score, and best score persist locally (offline-friendly).
 - **Installable PWA**: add to home screen and play offline.
 - **Keyboard support**: arrow keys or `W` `A` `S` `D`.

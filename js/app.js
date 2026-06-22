@@ -15,7 +15,6 @@
     tiles: document.getElementById("tiles"),
     score: document.getElementById("score"),
     best: document.getElementById("best"),
-    undo: document.getElementById("undo"),
     newGame: document.getElementById("new-game"),
     overlay: document.getElementById("overlay"),
     overlayTitle: document.getElementById("overlay-title"),
@@ -171,7 +170,6 @@
       localStorage.setItem(BEST_KEY, String(best));
     }
     els.best.textContent = best;
-    els.undo.disabled = !game.canUndo();
 
     const gained = game.score - prevScore;
     if (gained > 0 && opts && opts.showGain) {
@@ -227,7 +225,6 @@
     if (game.over) {
       showOverlay("No more moves", "The board is full. Final score: " + game.score + ".", [
         { label: "Try Again", primary: true, onClick: () => { startNew(); } },
-        { label: "Undo Move", primary: false, onClick: () => { doUndo(); hideOverlay(); } },
       ]);
     }
   }
@@ -254,17 +251,6 @@
     render({ showGain: true });
     persist();
     checkEndStates(result);
-  }
-
-  function doUndo() {
-    if (!game.canUndo()) return;
-    const ok = game.undo();
-    if (!ok) return;
-    // undo changes positions/values without slide context; re-sync DOM fully
-    clearAllTiles();
-    render({ silent: true });
-    persist();
-    flashHint("Reverted one move.");
   }
 
   let hintTimer = null;
@@ -332,7 +318,6 @@
 
   /* ---------- buttons ---------- */
   els.newGame.addEventListener("click", startNew);
-  els.undo.addEventListener("click", doUndo);
 
   window.addEventListener("resize", sizeBoard);
   window.addEventListener("orientationchange", () => setTimeout(sizeBoard, 200));
