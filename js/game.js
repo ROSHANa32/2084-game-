@@ -32,7 +32,6 @@
       this.over = false;
       this.won = false;
       this.keepPlaying = false;
-      this.history = [];
       this.lastAbsorbed = [];
       this._addRandomTile();
       this._addRandomTile();
@@ -65,39 +64,6 @@
       const tile = makeTile(value, r, c);
       this.grid[r][c] = tile;
       return tile;
-    }
-
-    // Snapshot for undo (deep enough; tiles are plain data)
-    _snapshot() {
-      return {
-        score: this.score,
-        won: this.won,
-        keepPlaying: this.keepPlaying,
-        grid: this.grid.map((row) =>
-          row.map((t) => (t ? { id: t.id, value: t.value, row: t.row, col: t.col } : null))
-        ),
-      };
-    }
-
-    _restore(snap) {
-      this.score = snap.score;
-      this.won = snap.won;
-      this.keepPlaying = snap.keepPlaying;
-      this.over = false;
-      this.lastAbsorbed = [];
-      this.grid = snap.grid.map((row) =>
-        row.map((t) => (t ? { ...t, isNew: false, mergedFrom: null } : null))
-      );
-    }
-
-    canUndo() {
-      return this.history.length > 0;
-    }
-
-    undo() {
-      if (!this.history.length) return false;
-      this._restore(this.history.pop());
-      return true;
     }
 
     /* Direction vectors */
@@ -152,7 +118,6 @@
       if (this.over && !this.keepPlaying) return { moved: false };
       const v = this._vector(dir);
       const { rows, cols } = this._traversals(dir);
-      const snapshot = this._snapshot();
 
       this._clearFlags();
       let moved = false;
@@ -210,8 +175,6 @@
       let spawned = null;
       if (moved) {
         this.score += gained;
-        this.history.push(snapshot);
-        if (this.history.length > 20) this.history.shift();
         spawned = this._addRandomTile();
         if (!this._movesAvailable()) {
           this.over = true;
@@ -280,7 +243,6 @@
         g.won = !!data.won;
         g.keepPlaying = !!data.keepPlaying;
         g.over = !!data.over;
-        g.history = [];
         TILE_SEQ = Math.max(TILE_SEQ, data.seq || 1);
         g.grid = data.grid.map((row) =>
           row.map((t) => (t ? { ...t, isNew: false, mergedFrom: null } : null))
